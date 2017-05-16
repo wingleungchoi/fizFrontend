@@ -23,12 +23,19 @@ function teamPredictionRequest(teamName) {
   return rp(options);
 }
 
-
 const teamPredictionRequests = _.map(teamNames, (teamNames) => teamPredictionRequest(teamNames))
-// unfortunately, Rails backend hangs after more than 4 async requests
+// from my observations, unfortunately, Rails backend hangs after more than 4 async requests
+// FYI: https://github.com/puma/puma/issues/1085
 Promise.all(_.take(teamPredictionRequests, 4)).then((results) => {
   console.log('all done');
   console.log('Promise.all results', results);
+  const concatenatedResult = _.chain(results)
+    .map((result) => JSON.parse(result))
+    .map((resultObject) => resultObject.winning_chance > 50)
+    .map((resultIsWinOrLost) => resultIsWinOrLost ? 'T' : 'F')
+    .join('')
+    .value();
+  console.log('concatenatedResult', concatenatedResult);
 }).catch(reason => {
   console.log('reason', reason)
 });
