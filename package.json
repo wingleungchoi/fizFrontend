@@ -1,0 +1,19 @@
+{
+  "name": "fiz_frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "findTheWinner": "./node_modules/babel-cli/bin/babel-node.js --presets node6 test_client.js"
+  },
+  "author": "wingleungchoi@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
